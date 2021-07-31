@@ -8,7 +8,7 @@ export const OfferedRideSchema = new mongoose.Schema({
     destination: { type: String, required: true },    
     created: { type: Date, default: Date.now },
     takenBy: { type : Array , "default" : [] },
-    isEnded: { type: Boolean, default: true }
+    isEnded: { type: Boolean, default: false }
 });
 
 export interface OfferedRide extends mongoose.Document {

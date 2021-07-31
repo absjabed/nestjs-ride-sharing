@@ -3,9 +3,9 @@ POST http://localhost:3000/users/addUser
 Content-Type: application/json
 
 { 
-    "username": "Rohan",
+    "username": "Rahul",
     "gender": "M",
-    "age": 36
+    "age": 35
 }
 ### 2 - get all users
 GET http://localhost:3000/users
@@ -15,9 +15,9 @@ POST  http://localhost:3000/users/addUserVehicle
 Content-Type: application/json
 
 {
-    "username": "Rohan",
-    "vehicle_brand": "Swift",
-    "vehicle_number": "KA-01-12345"
+    "username": "Rahul",
+    "vehicle_brand": "XUV",
+    "vehicle_number": "KA-05-1234"
 }
 
 ### 4 - offer a new ride
@@ -26,10 +26,10 @@ Content-Type: application/json
 
 {
     "username": "Rohan",
-    "origin": "Hyderabad",
+    "origin": "Bangalore",
+    "destination": "Pune",
     "available_seats": 1,
-    "vehicle": "Swift, KA-01-12345",
-    "destination": "Bangalore"
+    "vehicle": "Swift, KA-01-12345"
 }
 
 ### 5 - Find a Ride for a User
@@ -37,9 +37,17 @@ POST  http://localhost:3000/offer-ride/findRide
 Content-Type: application/json
 
 {
-    "username": "Rohan",
-    "origin": "Hyderabad",
+    "username": "Gaurav",
+    "origin": "Bangalore",
+    "destination": "Mysore",
     "seats": 1,
-    "preferred_vehicle": "Swift",
-    "destination": "Bangalore"
+    "preferred_vehicle": "Activa"
 }
+
+# {
+#     "username": "Nandini",
+#     "origin": "Bangalore",
+#     "destination": "Mysore",
+#     "seats": 1,
+#     "preferred_vehicle": "Most Vacant"
+# }

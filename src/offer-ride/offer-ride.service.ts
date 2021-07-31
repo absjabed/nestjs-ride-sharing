@@ -47,9 +47,9 @@ export class OfferRideService {
   private async findRideForAUser(findRideDto: FindRideDto){
     let foundRide: any;
     if(findRideDto.preferred_vehicle === "Most Vacant"){
-      foundRide = await this.offeredRideModel.findOne({ origin: findRideDto.origin, destination: findRideDto.destination, available_seats: { $gte: findRideDto.seats } }).exec();
+      foundRide = await this.offeredRideModel.findOne({ origin: findRideDto.origin, destination: findRideDto.destination, available_seats: { $gte: findRideDto.seats } }).sort('-available_seats').exec();
     }else{
-      foundRide = await this.offeredRideModel.findOne({ origin: findRideDto.origin, destination: findRideDto.destination, available_seats: { $gte: findRideDto.seats }, vehicle: { "$in": findRideDto.preferred_vehicle as any} }).exec();
+      foundRide = await this.offeredRideModel.findOne({ origin: findRideDto.origin, destination: findRideDto.destination, available_seats: { $gte: findRideDto.seats }, vehicle: { $regex: findRideDto.preferred_vehicle, $options: 'i' } }).exec();
     }
     return foundRide;
   }
