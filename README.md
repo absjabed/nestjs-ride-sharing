@@ -31,10 +31,10 @@ Ride Sharing application backend with Node.js framework. available features are 
     - users # User Entity implementation
         - dto # Data Transfer Object
         - schemas # Entity schema
-    - offer-ride # Quiz Entity implementation
+    - offer-ride # Offer-ride Entity implementation
         - dto
         - schemas
-    - report # Quiz Question Entity implementation
+    - report # Report Entity implementation
         - dto 
         - schemas
 - rest-client-test.http  # api request test example
