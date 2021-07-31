@@ -20,100 +20,26 @@ Content-Type: application/json
     "vehicle_number": "KA-01-12345"
 }
 
-### 4 - request for a quiz
-POST http://localhost:3000/users/requestQuiz
+### 4 - offer a new ride
+POST  http://localhost:3000/offer-ride/offerRide
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjcxMzIyNTgsImV4cCI6MTYyNzEzNTg1OH0._-mm5YYuf9jS0tHVHOr_ZRkh91Mg-5ZUQeImOzVLqPQ
 
 {
-    "username": "test2",
-    "quizId": "quiz03"
+    "username": "Rohan",
+    "origin": "Hyderabad",
+    "available_seats": 1,
+    "vehicle": "Swift, KA-01-12345",
+    "destination": "Bangalore"
 }
 
-### 5 - submit quiz answer
-POST http://localhost:3000/users/submitQuiz
+### 5 - Find a Ride for a User
+POST  http://localhost:3000/offer-ride/findRide
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjcxMzIyNTgsImV4cCI6MTYyNzEzNTg1OH0._-mm5YYuf9jS0tHVHOr_ZRkh91Mg-5ZUQeImOzVLqPQ
 
 {
-    "username": "test2",
-    "quizId": "quiz03",
-    "requestId": "c5661978-eb8e-47ff-bbc0-611aa411a64d",
-    "score": 30
+    "username": "Rohan",
+    "origin": "Hyderabad",
+    "seats": 1,
+    "preferred_vehicle": "Swift",
+    "destination": "Bangalore"
 }
-
-### 6 - Add new QuizTest
-POST http://localhost:3000/quiz-test/newQuizTest
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjcxMzIyNTgsImV4cCI6MTYyNzEzNTg1OH0._-mm5YYuf9jS0tHVHOr_ZRkh91Mg-5ZUQeImOzVLqPQ
-
-{
-    "quizId": "quiz04",
-    "quizName": "Quiz-04",
-    "quizDescription": "This is Quiz-04",
-    "numberOfQuestions": 7,
-    "quizDuration": 18,
-    "quizStatus": "active",
-    "quizIsOpen": false
-}
-
-### 7 - update/patch a quiz
-PATCH http://localhost:3000/quiz-test/updateQuiz
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjcxMzIyNTgsImV4cCI6MTYyNzEzNTg1OH0._-mm5YYuf9jS0tHVHOr_ZRkh91Mg-5ZUQeImOzVLqPQ
-
-{
-    "quizId": "quiz04",
-    "quizIsOpen": true
-}
-
-### 8 - add a new quiz question
-POST http://localhost:3000/quiz-questions/newQuestion
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjcxMzIyNTgsImV4cCI6MTYyNzEzNTg1OH0._-mm5YYuf9jS0tHVHOr_ZRkh91Mg-5ZUQeImOzVLqPQ
-
-{
-        "questionId": "q10",
-        "questionName": "Development Knowledge",
-        "questionDescription": "What is correct MIME type for JSON ?",
-        "answerOptions": [
-            {
-                "optionId": 1,
-                "optionDescription": "json/mime",
-                "isCorrect": false
-            },
-            {
-                "optionId": 2,
-                "optionDescription": "application/js",
-                "isCorrect": false
-            },
-            {
-                "optionId": 3,
-                "optionDescription": "application/xml",
-                "isCorrect": false
-            },
-            {
-                "optionId": 4,
-                "optionDescription": "none of these",
-                "isCorrect": true
-            }
-        ],
-        "correctAnswer": 4,
-        "isPublished": true
-    }
-
-### 9 - get all available quiz questions
-GET  http://localhost:3000/quiz-questions/questions
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjcxMzIyNTgsImV4cCI6MTYyNzEzNTg1OH0._-mm5YYuf9jS0tHVHOr_ZRkh91Mg-5ZUQeImOzVLqPQ
-
-### 10 - update/patch a quiz question
-PATCH http://localhost:3000/quiz-questions/updateQuestion
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjcxMzIyNTgsImV4cCI6MTYyNzEzNTg1OH0._-mm5YYuf9jS0tHVHOr_ZRkh91Mg-5ZUQeImOzVLqPQ
-
-{
-    "questionId": "q1",
-    "questionName": "Meaning of life"
-}
-
-

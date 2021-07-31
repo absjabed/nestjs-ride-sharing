@@ -2,33 +2,48 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Ride Sharing Application using Nest.js and MongoDB
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+[Nest](https://github.com/nestjs/nest) is a prograssive [Node.js](https://nodejs.org) framework with TypeScript for building efficient and scalable server-side/backend applications.
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Ride Sharing application backend with Node.js framework. available features are add user, offer ride, find ride, rest wip...
+
+## Technologies Used
+
+- Node.js, NestJs
+- Typescript
+- MongoDB
+- Mongoose
+- Rest client
+- git
+
+## Application Entities
+
+- Users
+- Ride offers
+- Report
+
+## Folder structure
+```bash
+- src
+    - users # User Entity implementation
+        - dto # Data Transfer Object
+        - schemas # Entity schema
+    - offer-ride # Quiz Entity implementation
+        - dto
+        - schemas
+    - report # Quiz Question Entity implementation
+        - dto 
+        - schemas
+- rest-client-test.http  # api request test example
+```
 
 ## Installation
 
 ```bash
+$ npm install -g @nestjs/cli
 $ npm install
 ```
 
@@ -45,29 +60,59 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Rest-API End Examples
 
-```bash
-# unit tests
-$ npm run test
+### 1 - add a new user
+```
+POST http://localhost:3000/users/addUser
+Content-Type: application/json
 
-# e2e tests
-$ npm run test:e2e
+{ 
+    "username": "Rohan",
+    "gender": "M",
+    "age": 36
+}
+```
+### 2 - get all users
+```
+GET http://localhost:3000/users
 
-# test coverage
-$ npm run test:cov
+```
+### 3 - add user vehicle
+```
+POST  http://localhost:3000/users/addUserVehicle
+Content-Type: application/json
+
+{
+    "username": "Rohan",
+    "vehicle_brand": "Swift",
+    "vehicle_number": "KA-01-12345"
+}
 ```
 
-## Support
+### 4 - offer a new ride
+```
+POST  http://localhost:3000/offer-ride/offerRide
+Content-Type: application/json
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+{
+    "username": "Rohan",
+    "origin": "Hyderabad",
+    "available_seats": 1,
+    "vehicle": "Swift, KA-01-12345",
+    "destination": "Bangalore"
+}
+```
+### 5 - Find a Ride for a User
+```
+POST  http://localhost:3000/offer-ride/findRide
+Content-Type: application/json
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+{
+    "username": "Rohan",
+    "origin": "Hyderabad",
+    "seats": 1,
+    "preferred_vehicle": "Swift",
+    "destination": "Bangalore"
+}
+```
