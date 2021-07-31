@@ -1,25 +1,24 @@
-### 1 - register a new user
-POST http://localhost:3000/users/registerUser
+### 1 - add a new user
+POST http://localhost:3000/users/addUser
 Content-Type: application/json
 
 { 
-    "username": "test2",
-    "fullName": "Test User 2",
-    "email": "test2@mail.com",
-    "password": "pass123"
+    "username": "Rohan",
+    "gender": "M",
+    "age": 36
 }
-### 2 - login
-POST http://localhost:3000/auth/login
+### 2 - get all users
+GET http://localhost:3000/users
+
+### 3 - add user vehicle
+POST  http://localhost:3000/users/addUserVehicle
 Content-Type: application/json
 
 {
-    "username": "test2", 
-    "password": "pass123"
+    "username": "Rohan",
+    "vehicle_brand": "Swift",
+    "vehicle_number": "KA-01-12345"
 }
-
-### 3 - get all available quizes
-GET  http://localhost:3000/quiz-test/availableQuizes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjcxMzIyNTgsImV4cCI6MTYyNzEzNTg1OH0._-mm5YYuf9jS0tHVHOr_ZRkh91Mg-5ZUQeImOzVLqPQ
 
 ### 4 - request for a quiz
 POST http://localhost:3000/users/requestQuiz
