@@ -17,5 +17,10 @@ export class OfferRideController {
         return this.offerRideService.findRideForUser(findRideDto);
     }
 
+    @Post('endRide')
+    async EndRide(@Body() offerRideDto: OfferRideDto): Promise<any> {
+        return this.offerRideService.endRide(offerRideDto);
+    }
+
 
 }

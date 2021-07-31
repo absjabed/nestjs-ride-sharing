@@ -31,31 +31,53 @@ export class OfferRideService {
         return { id: result.id as string, msg:'Ride Offered successfully!' };
   }
 
+  async endRide(offerRideDto: OfferRideDto): Promise<any>{
+    
+    const user = await this.userService.findUserbyId(offerRideDto.username);
+        if(!user) return { msg: 'User not found' };
+
+    let rideInfo = await this.findRide(offerRideDto.vehicle, offerRideDto.origin, offerRideDto.destination);
+        if(!rideInfo) return { msg: 'No ride found to be ended.' };
+        if(rideInfo.isEnded) return { msg: 'This Ride has already been ended.' };
+
+        rideInfo.isEnded = true;
+    
+        const result = await rideInfo.save();
+        return { id: result.id as string, msg:'Ride Ended successfully!' };
+  }
+
   async findRideForUser(findRideDto: FindRideDto): Promise<any>{
     const user = await this.userService.findUserbyId(findRideDto.username);
         if(!user) return { msg: 'User not found' };
     
-    const rideForUSer = await this.findRideForAUser(findRideDto);
-      
-    if (!rideForUSer) {
+    const rideForUser = await this.findRideForAUser(findRideDto);
+    if (!rideForUser) {
       return { id: null, msg:'No ride found for the user'};
     }else{
-      return { msg: 'Found a Ride for you!', rideInfo: rideForUSer };
+        if(rideForUser.takenBy.findIndex(a => a === findRideDto.username) >= 0) return { msg: 'User already took one ride & it\'s not ended yet' };
+        rideForUser.takenBy.push(user.username);
+        const result = await rideForUser.save();
+      return { msg: 'Found a Ride for you!', rideInfo: rideForUser, id: result.id as string };
     }
   }
 
   private async findRideForAUser(findRideDto: FindRideDto){
     let foundRide: any;
     if(findRideDto.preferred_vehicle === "Most Vacant"){
-      foundRide = await this.offeredRideModel.findOne({ origin: findRideDto.origin, destination: findRideDto.destination, available_seats: { $gte: findRideDto.seats } }).sort('-available_seats').exec();
+      foundRide = await this.offeredRideModel.findOne({ isEnded: false, origin: findRideDto.origin, destination: findRideDto.destination, available_seats: { $gte: findRideDto.seats } }).sort('-available_seats').exec();
     }else{
-      foundRide = await this.offeredRideModel.findOne({ origin: findRideDto.origin, destination: findRideDto.destination, available_seats: { $gte: findRideDto.seats }, vehicle: { $regex: findRideDto.preferred_vehicle, $options: 'i' } }).exec();
+      foundRide = await this.offeredRideModel.findOne({ isEnded: false, origin: findRideDto.origin, destination: findRideDto.destination, available_seats: { $gte: findRideDto.seats }, vehicle: { $regex: findRideDto.preferred_vehicle, $options: 'i' } }).exec();
     }
     return foundRide;
   }
 
   private async findRideInfo(usrname: string, vehicleId: string): Promise<OfferedRide> {
-    let ride = await this.offeredRideModel.findOne({ username: usrname, vehicle: vehicleId }).exec();
+    let ride = await this.offeredRideModel.findOne({ username: usrname, vehicle: vehicleId, isEnded: false }).exec();
+    return ride;
+  }
+
+  private async findRide(vehicleId: string, origin: string, destination: string): Promise<OfferedRide> {
+    let ride = await this.offeredRideModel.findOne({ vehicle: vehicleId, origin: origin, destination: destination }).exec();
     return ride;
   }
 }

@@ -51,3 +51,15 @@ Content-Type: application/json
 #     "seats": 1,
 #     "preferred_vehicle": "Most Vacant"
 # }
+
+
+### 6 - End a Ride for
+POST  http://localhost:3000/offer-ride/endRide
+Content-Type: application/json
+
+{
+    "username": "Gaurav",
+    "origin": "Bangalore",
+    "destination": "Mysore",
+    "vehicle": "Activa KA-12-12332"
+}

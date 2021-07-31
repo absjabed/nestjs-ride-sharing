@@ -116,3 +116,16 @@ Content-Type: application/json
     "destination": "Bangalore"
 }
 ```
+
+### 6 - End a Ride for a User
+```
+POST  http://localhost:3000/offer-ride/endRide
+Content-Type: application/json
+
+{
+    "username": "Gaurav",
+    "origin": "Bangalore",
+    "destination": "Mysore",
+    "vehicle": "Activa KA-12-12332"
+}
+```
